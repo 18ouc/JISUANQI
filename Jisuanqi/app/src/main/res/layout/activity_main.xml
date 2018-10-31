@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    package = ""
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.example.lenovo_pc.jisuanqi.MainActivity">
+
+    <RelativeLayout
+        android:id = "@+id/LL_1"
+        android:background = "#87CEEB"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:id = "@+id/tvResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            android:background = "#FCE6C9"
+            android:text="0"
+            android:gravity="right|bottom"
+            android:textSize="40sp"/>
+
+        <Button
+            android:id="@+id/btn_quyu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="220dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/shap"
+            android:text="%" />
+
+        <Button
+            android:id = "@+id/BtnCE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_quyu"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/shap"
+            android:text = "CE"/>
+
+        <Button
+            android:id="@+id/Btn7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@id/BtnCE"
+            android:text="7" />
+
+        <Button
+            android:id="@+id/Btn4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@id/Btn7"
+            android:text="4" />
+
+        <Button
+            android:id = "@+id/Btn1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@id/Btn4"
+            android:text = "1"/>
+
+        <Button
+            android:id = "@+id/BtnSign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@id/Btn1"
+
+            android:text = "±"/>
+
+        <Button
+            android:id = "@+id/BtnRooting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/btn_quyu"
+            android:layout_above="@+id/BtnCE"
+            android:background="@drawable/shap"
+            android:text = "√"/>
+
+        <Button
+            android:id = "@+id/BtnC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/BtnRooting"
+            android:layout_toRightOf="@id/btn_quyu"
+            android:background="@drawable/shap"
+            android:text = "C"/>
+
+        <Button
+            android:id = "@+id/Btn8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/BtnC"
+            android:layout_toRightOf="@id/btn_quyu"
+            android:text = "8"/>
+
+        <Button
+            android:id = "@+id/Btn5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Btn8"
+            android:layout_toRightOf="@id/btn_quyu"
+            android:text = "5"/>
+
+        <Button
+            android:id = "@+id/Btn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Btn5"
+            android:layout_toRightOf="@id/btn_quyu"
+            android:text = "2"/>
+
+        <Button
+            android:id = "@+id/Btn0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Btn2"
+            android:layout_toRightOf="@id/btn_quyu"
+            android:text = "0"/>
+
+        <Button
+            android:id = "@+id/BtnSquare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/BtnC"
+            android:layout_toRightOf="@id/BtnRooting"
+            android:background="@drawable/shap"
+            android:text = "x²"/>
+
+        <Button
+            android:id = "@+id/BtnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/BtnSquare"
+            android:layout_toRightOf="@id/BtnRooting"
+            android:background="@drawable/shap"
+            android:text = "Bs"/>
+
+        <Button
+            android:id = "@+id/Btn9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/BtnBack"
+            android:layout_toRightOf="@id/BtnRooting"
+            android:text = "9"/>
+
+        <Button
+            android:id = "@+id/Btn6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Btn9"
+            android:layout_toRightOf="@id/BtnRooting"
+            android:text = "6"/>
+
+        <Button
+            android:id = "@+id/Btn3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Btn6"
+            android:layout_toRightOf="@id/BtnRooting"
+            android:text = "3"/>
+
+        <Button
+            android:id = "@+id/BtnPoint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Btn3"
+            android:layout_toRightOf="@id/BtnRooting"
+
+            android:text = "."/>
+
+        <Button
+            android:id = "@+id/BtnReciprocal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/BtnBack"
+            android:layout_toRightOf="@id/BtnSquare"
+            android:background="@drawable/shap"
+            android:text = "1/x"/>
+
+        <Button
+            android:id = "@+id/BtnDivide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/BtnReciprocal"
+            android:layout_toRightOf="@id/BtnSquare"
+            android:background="@drawable/hehe"
+            android:text = "÷"/>
+
+        <Button
+            android:id = "@+id/BtnMultiply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/BtnDivide"
+            android:layout_toRightOf="@id/BtnSquare"
+            android:background="@drawable/hehe"
+            android:text = "×"/>
+
+        <Button
+            android:id = "@+id/BtnMinus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/BtnMultiply"
+            android:layout_toRightOf="@id/BtnSquare"
+            android:background="@drawable/hehe"
+            android:text = "－"/>
+
+        <Button
+            android:id = "@+id/BtnPlus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/BtnMinus"
+            android:layout_toRightOf="@id/BtnSquare"
+            android:background="@drawable/hehe"
+            android:text = "+"/>
+
+        <Button
+            android:id = "@+id/BtnEqual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/BtnPlus"
+            android:layout_toRightOf="@id/BtnPoint"
+            android:background="@drawable/fenhong"
+            android:text = "="/>
+
+    </RelativeLayout>
+</RelativeLayout>
+
