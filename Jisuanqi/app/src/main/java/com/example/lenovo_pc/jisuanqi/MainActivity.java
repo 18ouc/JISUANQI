@@ -25,21 +25,22 @@ public class MainActivity extends AppCompatActivity {
     int lianDian = 0;//用于实现连续点等号可以实现自加情况
     int  m = 0;//用于判断 四则运算敲击次数
     int p = 0;//用于实现连加
-    int od = 0; int sum3= 0;//用于实现连加
+    int od = 0;//用于实现连加
     int hehe = 0;
     int xx = 0;//用于控制无效输出后的等号
     int yy = 0;//用于控制单目运算后 加 等号
-    int q = 0;//修补2.2.2.
+    int q  = 0;//修补2.2.2.
     int qq = 0;
     int a = 0;//修补按平方后再按数字的
     int pp = 0;//用于修补99平方 + 1（崩溃bug）
-    int kk = 0;//用于修补 除等bug
+    int kk  = 0;//用于修补 除等bug
     int fudian = 0;//用于修补按点后按负号点会消失
     int bfudian = 0;//保存产生的点
     int ffudian = 0;//防止产生两个点
     int fffudian = 0;//实现-0.0
     int ppt = 0;//用于使平方后退位失灵
     int ooo = 0;//用于修复按点0再按加减的bug
+    int aaa = 0;//用于修补四则运算后不能退位的情况
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +75,11 @@ public class MainActivity extends AppCompatActivity {
         btn_deng.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                aaa = 0;//用于修补四则运算后不能退位的情况
+                NumberFormat nf = NumberFormat.getInstance();
+                nf.setMaximumFractionDigits(15);
+                textView.setText(String.valueOf(nf.format(sum)));//修补2.00按等号的bug0
+                int ppp = 0;//用与控制非零数除以0 输出除数不能为0
                 bfudian = 0;//保存产生的点（按其他都置零
                 if(xx == 1) {                                           //控制某些情况下点 等号 后出现 0
                     textView.setText("0");
@@ -99,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                         result = 0;
                         lianDian = 4;
                     }
-                    NumberFormat nf = NumberFormat.getInstance();
+                    //NumberFormat nf = NumberFormat.getInstance();
                     nf.setMaximumFractionDigits(15);
                     textView.setText(String.valueOf(nf.format(result)));
                     sum1 = result;//*******************
@@ -108,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 else {
                     if (lianDian == 1) {
                         result = sum + sum2;
-                        NumberFormat nf = NumberFormat.getInstance();
+                        //NumberFormat nf = NumberFormat.getInstance();
                         nf.setMaximumFractionDigits(15);
                         textView.setText(String.valueOf(nf.format(result)));
                         sum = result;
@@ -116,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     if (lianDian == 2) {
                         result = sum - sum2;
-                        NumberFormat nf = NumberFormat.getInstance();
+                        //NumberFormat nf = NumberFormat.getInstance();
                         nf.setMaximumFractionDigits(15);
                         textView.setText(String.valueOf(nf.format(result)));
                         sum = result;
@@ -124,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     if (lianDian == 3) {
                         result = sum * sum2;
-                        NumberFormat nf = NumberFormat.getInstance();
+                        //NumberFormat nf = NumberFormat.getInstance();
                         nf.setMaximumFractionDigits(15);
                         textView.setText(String.valueOf(nf.format(result)));
                         sum = result;
@@ -133,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
 
                     if (lianDian == 4) {
                         if(sum2 != 0) result = sum / sum2;
-                        NumberFormat nf = NumberFormat.getInstance();
+                        //NumberFormat nf = NumberFormat.getInstance();
                         nf.setMaximumFractionDigits(15);
                         textView.setText(String.valueOf(nf.format(result)));
                         sum = result;
@@ -165,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
                                 sum2 = sum;//用于解决四则运算符 + 等号bug
                             }
                         }
-                        NumberFormat nf = NumberFormat.getInstance();
+                        //NumberFormat nf = NumberFormat.getInstance();
                         nf.setMaximumFractionDigits(15);
                         textView.setText(String.valueOf(nf.format(result)));
                         sum = result;
@@ -196,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
                                 sum2 = sum;//用于解决四则运算符 + 等号bug
                             }
                         }
-                        NumberFormat nf = NumberFormat.getInstance();
+                        //NumberFormat nf = NumberFormat.getInstance();
                         nf.setMaximumFractionDigits(15);
                         textView.setText(String.valueOf(nf.format(result)));
                         sum = result;
@@ -229,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
                             sum2 = sum;//用于解决四则运算符 + 等号bug
                             }
                         }
-                        NumberFormat nf = NumberFormat.getInstance();
+                        //NumberFormat nf = NumberFormat.getInstance();
                         nf.setMaximumFractionDigits(15);
                         textView.setText(String.valueOf(nf.format(result)));
                         sum = result;
@@ -245,22 +251,28 @@ public class MainActivity extends AppCompatActivity {
                             if("".equals(second)) {
                                 sum2 = sum1;
                                 result = sum1 / sum;
+                                if(sum1 != 0) ppp = 1;//用与控制非零数除以0 输出除数不能为0
                                 if(sum2 != 0) result = sum1 / sum;
                                 else kk = 1;
                             }
                             else{
+                                if(sum1 != 0) ppp = 1;//用与控制非零数除以0 输出除数不能为0
                                 //sum2 = Double.parseDouble(second);！！！！！！！！！！！！！！！！最近修改
-                                if(/*sum2*/sum != 0) result = sum1 / sum;
+                                if(/*sum2*/sum != 0) {
+                                    result = sum1 / sum;
+                                }
                             }
                         }
                         if(x == 1){
                             if("".equals(second)) {
                                 sum2 = sum1;
                                 result = sum1 / sum;
+                                if(sum1 != 0) ppp = 1;//用与控制非零数除以0 输出除数不能为0
                                 if(sum2 != 0) result = sum1 / sum;
                                 else kk = 1;
                             }
                             else {
+                                if(result != 0) ppp = 1;//用与控制非零数除以0 输出除数不能为0
                                 //sum2 = Double.parseDouble(second);！！！！！！！！！！！！！！！！最近修改
                                 if (/*sum2*/sum != 0) {
                                     result = result / sum;
@@ -268,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }
                         }
-                        NumberFormat nf = NumberFormat.getInstance();
+                        //NumberFormat nf = NumberFormat.getInstance();
                         nf.setMaximumFractionDigits(15);
                         textView.setText(String.valueOf(nf.format(result)));
                         sum = result;
@@ -278,8 +290,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 if((op == 4 || lianDian == 4) && sum2 == 0 ){
-                    if(sum1 == 0 || result == 0 || kk == 1) textView.setText("结果未定义");
-                    else textView.setText("除数不能为0");
+                    if(ppp == 1) {//用与控制非零数除以0 输出除数不能为0
+                        textView.setText("除数不能为0");
+                        ppp = 0;
+                    }
+                    else if(sum1 == 0 || result == 0 || kk == 1) textView.setText("结果未定义");
                     flag = true; k = 0; op = 0; lianDian = 0; result = 0; sum1 = 0; sum2 = 0; m = 0; quLing = 0; lingHouDian =0; first = "0";
                     second = ""; dengHouDian = 0;  t = 0;  d = 0 ;p = 0; sum = 0; x = 0;od = 0;hehe = 0;yy = 0;
                     xx = 1;q = 0;qq = 0;a = 0;pp = 0;  kk = 0;fudian = 0;ffudian = 0;//防止产生两个点
@@ -288,6 +303,7 @@ public class MainActivity extends AppCompatActivity {
                     dengHouDian = 1;
                     t = 0;
                     m = 1;
+                    q = 0;//修补2.00 按等号 后再按数 按点的bug
                 }
             }
         });
@@ -298,6 +314,7 @@ public class MainActivity extends AppCompatActivity {
         btn_0.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                aaa = 0;//用于修补四则运算后不能退位的情况
                 ppt = 0;//用于使平方后退位失灵
                 bfudian = 0;//保存产生的点（按其他都置零
                 if(a == 1){//修补按平方后再按数字的bug
@@ -366,6 +383,7 @@ public class MainActivity extends AppCompatActivity {
         btn_1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                aaa = 0;//用于修补四则运算后不能退位的情况
                 ooo = 0;//用于修复按点0再按加减的bug           ！！！！！！！！！！！！！！！！！2-9还未改
                 ppt = 0;//用于使平方后退位失灵
                 bfudian = 0;//保存产生的点（按其他都置零
@@ -443,6 +461,7 @@ public class MainActivity extends AppCompatActivity {
         btn_dian.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                aaa = 0;//用于修补四则运算后不能退位的情况
                 ppt = 0;//用于使平方后退位失灵
                 //bfudian = 0;//保存产生的点（按其他都置零
                 if(a == 1){//修补按平方后再按数字的bug
@@ -475,7 +494,7 @@ public class MainActivity extends AppCompatActivity {
                             k = 2;
                             flag = false;
                         }
-                        else if (k == 1 && q == 0) {
+                        else if (k == 1 && q == 0 && first.indexOf(".") == -1) {
                             first = first + ".";
                             first = first.replace(",","");//!!!!!!!!!!!!!!!!!!!!!!!!!!!修复了遇到，系统崩溃的bug
                             textView.setText(first);
@@ -503,7 +522,7 @@ public class MainActivity extends AppCompatActivity {
                             sum = sum2;//******************
                             k = 2;
                             flag = false;
-                        } else if (k == 1 && qq == 0) {//修补按 + 2.2崩溃的bug
+                        } else if (k == 1 && qq == 0 && second.indexOf(".") == -1) {//修补按 + 2.2崩溃的bug
                             second = second + ".";
                             second = second.replace(",","");//!!!!!!!!!!!!!!!!!!!!!!!!!!!修复了遇到，系统崩溃的bug
                             textView.setText(second);
@@ -525,6 +544,7 @@ public class MainActivity extends AppCompatActivity {
         btn_genhao.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                aaa = 0;//用于修补四则运算后不能退位的情况
                 ooo = 0;//用于修复按点0再按加减的bug
                 bfudian = 0;//保存产生的点（按其他都置零
                 if(sum >= 0){
@@ -571,6 +591,7 @@ public class MainActivity extends AppCompatActivity {
         btn_pingfang.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                    aaa = 0;//用于修补四则运算后不能退位的情况
                     ooo = 0;//用于修复按点0再按加减的bug
                     bfudian = 0;//保存产生的点（按其他都置零
                     NumberFormat nf = NumberFormat.getInstance();
@@ -608,6 +629,7 @@ public class MainActivity extends AppCompatActivity {
         btn_daoshu.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                        aaa = 0;//用于修补四则运算后不能退位的情况
                         ooo = 0;//用于修复按点0再按加减的bug
                         bfudian = 0;//保存产生的点（按其他都置零
                         if(sum != 0) {
@@ -650,9 +672,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 //绑定 加减号 的监听事件
+        //11.1在这里修复了 0 ± ±bug
         btn_jiajian.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                    aaa = 0;//用于修补四则运算后不能退位的情况
                     NumberFormat nf = NumberFormat.getInstance();
                     nf.setMaximumFractionDigits(15);
                     if(yy == 0){
@@ -662,7 +686,7 @@ public class MainActivity extends AppCompatActivity {
                             else first = first.replaceFirst("-","");
                             textView.setText(first);
                         }
-                        else if(sum == 0  && (second.indexOf(".") != -1)){
+                        else if(sum == 0  && (second.indexOf(".") != -1)){//有点
                             double dzz = Double.parseDouble(second + "1");
                             if(dzz > 0) second = "-" + second;
                             else second = second.replaceFirst("-","");
@@ -672,11 +696,12 @@ public class MainActivity extends AppCompatActivity {
                             sum  = 0 - sum;
                             if(ooo == 0) first = String.valueOf(nf.format(sum));
                             else{
-                                if(first.indexOf("-") == -1) first = "-" + first;
+                                if(first.indexOf("-") == -1 && first.indexOf(".") != -1) first = "-" + first;
                                 else first = first.replaceFirst("-","");
                             }
                             first = first.replace(",","");
-                            if( (fudian == 1 || bfudian == 1)  && (first.indexOf(".") == -1)){//防止两个点出现
+                            //防止按了四则运算符再按 ±就有点
+                            if( (fudian == 1 || bfudian == 1)  && (first.indexOf(".") == -1) ){//防止两个点出现
                                 first = first +".";
                                 fudian = 0;
                                 bfudian = 1;
@@ -684,13 +709,14 @@ public class MainActivity extends AppCompatActivity {
                                 fffudian = 1;
                             }
                             sum1 = sum;
+                            if(first == "") first = "0";
                             textView.setText(first);
                         }
-                        else if(sum == sum2) {
+                        else if(sum == sum2 && op != 0) {//修补 0±
                             sum = 0 - sum;
                             if(ooo == 0) second = String.valueOf(nf.format(sum));
                             else{
-                                if(second.indexOf("-") == -1) second = "-" + second;
+                                if(second.indexOf("-") == -1 && second.indexOf(".") != -1) second = "-" + second;//修补有负号 无点输出修补 0±
                                 else second = second.replaceFirst("-","");
                             }
                             second = second.replace(",","");
@@ -702,13 +728,14 @@ public class MainActivity extends AppCompatActivity {
                                 fffudian = 1;
                             }
                             sum2 = sum;
+                            if(second == "") second = "0";
                             textView.setText(second);
                         }
-                        else if(sum == result) {
+                        else if(sum == result ) {//防止按了四则运算符再按 ±就有点
                             sum = 0 - sum;
                             if(ooo == 0) first = String.valueOf(nf.format(sum));
                             else{
-                                if(first.indexOf("-") == -1) first = "-" + first;
+                                if(first.indexOf("-") == -1 && first.indexOf(".") != -1) first = "-" + first;
                                 else first = first.replaceFirst("-","");
                             }
                             if( (fudian == 1 || bfudian == 1)  && (first.indexOf(".") == -1)){
@@ -719,22 +746,26 @@ public class MainActivity extends AppCompatActivity {
                                 fffudian = 1;
                             }
                             result = sum;
+                            if(first == "") first = "0";
                             textView.setText(first);
                         }
                     }
                     else{
+                        int pppp = 0;//用于修补2 + ±bug
+                        if(second.indexOf(".") != -1) pppp = 1;
                         sum = 0 - sum;
                         if(ooo == 0) second = String.valueOf(nf.format(sum));
                         else{
                             if(second.indexOf("-") == -1) second = "-" + second;
                             else second = second.replaceFirst("-","");
                         }
-                        if((fudian == 1 || bfudian == 1|| ffudian == 0) && (second.indexOf(".") == -1)){
+                        if((fudian == 1 || bfudian == 1|| ffudian == 0) && (second.indexOf(".") == -1) && pppp == 1){
                             second = second +".";
                             fudian = 0;
                             bfudian = 1;
                             ffudian = 1;
                             fffudian = 1;
+                            pppp = 0;
                         }
                         sum2 = sum;
                         textView.setText(second);
@@ -751,6 +782,7 @@ public class MainActivity extends AppCompatActivity {
         btn_jia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                aaa = 1;//用于修补四则运算后不能退位的情况
                 ooo = 0;//用于修复按点0再按加减的bug
                 ppt = 0;//用于使平方后退位失灵
                 a = 0;//用于实现按了根号后再按四则运算符可以运算
@@ -826,6 +858,7 @@ public class MainActivity extends AppCompatActivity {
         btn_chu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                aaa = 1;//用于修补四则运算后不能退位的情况
                 ooo = 0;//用于修复按点0再按加减的bug
                 ppt = 0;//用于使平方后退位失灵
                 bfudian = 0;//保存产生的点（按其他都置零
@@ -880,7 +913,7 @@ public class MainActivity extends AppCompatActivity {
                         m = 1;
                     }
                 }
-                if(sum2 == 0 && op == 4 && second !=null){
+                if(sum2 == 0 && op == 4 && second !=""){
                     textView.setText("除数不能为0");
                     flag = true; k = 0; op = 0; lianDian = 0; result = 0; sum1 = 0; sum2 = 0; m = 0; quLing = 0; lingHouDian =0; first = "0";
                     second = ""; dengHouDian = 0;  t = 0;  d = 0 ;p = 0; sum = 0; x = 0;od = 0;hehe = 0;yy = 0;fudian = 0;ffudian = 0;//防止产生两个点
@@ -909,14 +942,18 @@ public class MainActivity extends AppCompatActivity {
                 second = ""; dengHouDian = 0;  t = 0;  d = 0 ;p = 0;sum = 0; x = 0;od = 0;hehe = 0;fudian = 0;ffudian = 0;//防止产生两个点
                 xx = 0;yy = 0;q = 0;qq = 0;a = 0;pp = 0;bfudian = 0;//保存产生的点（按其他都置零
                  ppt = 0;//用于使平方后退位失灵
-                ffudian = 0;
                 ooo = 0;//用于修复按点0再按加减的bug
+                hehe = 0;
+                kk = 0;
+                fffudian = 0;
+                aaa = 0;//用于修补四则运算后不能退位的情况
             }
         });
 //绑定清除（CE）的监听事件
         btn_CE.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                aaa = 0;//用于修补四则运算后不能退位的情况
                 flag = true;//排除按了该键在按0的bug
                 bfudian = 0;//保存产生的点（按其他都置零
                 ffudian = 0;//防止产生两个点
@@ -928,13 +965,13 @@ public class MainActivity extends AppCompatActivity {
                 ppt = 0;//用于使平方后退位失灵
                 ffudian = 0;*/
 
-                if(sum == sum1) {
+                if(sum == sum1 && op == 0) {
                     first = "0";
                     textView.setText(first);
                     sum = Double.parseDouble(first);
                     sum1 = Double.parseDouble(first);
                 }
-                else if(sum == sum2){
+                else if(sum == sum2 || (sum == sum1 && op !=0)){
                     second = "0";
                     textView.setText(second);
                     sum = Double.parseDouble(second);
@@ -942,6 +979,9 @@ public class MainActivity extends AppCompatActivity {
                     flag = true;//新家**************************************
                 }
                 else if(sum == result){
+                    result = 0;
+                    sum = 0;
+                    textView.setText("0");
                     flag = true; k = 0; op = 0;  result = 0; sum1 = 0;  m = 0; quLing = 0; lingHouDian =0; first = "0";
                     second =""; dengHouDian = 0;  t = 0;  d = 0 ;p = 0;sum = 0; x = 0;od = 0;hehe = 0;fudian = 0;
                     xx = 0;yy = 0;q = 0;qq = 0; /*   a不变 */;/*pp不变*/
@@ -955,20 +995,25 @@ public class MainActivity extends AppCompatActivity {
         btn_tuiwei.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                //11.1修补了1± 退位 等等崩溃bug
                 ooo = 0;//用于修复按点0再按加减的bug
-                if(sum == sum1 && sum != sum2 && first != "" && ppt == 0) {//v用于控制平方 开方 倒数
+                //修复初始界面按0.000按退位无反应的bug
+                //qwe用于修补等号后重新按数的bug
+                if(sum == sum1 && (sum != sum2 || (sum == 0 && first.indexOf(".")!= -1)) &&/*second == ""&& */first != "" && ppt == 0&&aaa ==0) {//v用于控制平方 开方 倒数
                     first = first.replaceFirst(",","");//!!!!!!!!!!!!!!!!!!!!!!!!!!!修复了遇到，系统崩溃的bug
-                    int len1 = first.length();
-                    if (len1 > 1) {
+                    int len1 = first.length();;//分为有符号和没有符号
+                    if (len1 == 1 || (len1 == 2 && (first.indexOf("-") != -1 || first.indexOf(".") != -1)) ){
+                        first = "0";
+                        textView.setText(first);
+                        flag = true;//新加*********************************
+                    }
+                    else if (len1 > 1) {
                         first = first.substring(0, len1 - 1);
                         /*if(first.indexOf(".") == -1)  {
                             bfudian = 0;//保存产生的点（按其他都置零
                             fffudian = 0;
                             //ffudian = 0;//防止产生两个点
                         }*/
-                        textView.setText(first);
-                    } else if (len1 == 1) {
-                        first = "0";
                         textView.setText(first);
                     }
                     sum = Double.parseDouble(first);
@@ -977,7 +1022,12 @@ public class MainActivity extends AppCompatActivity {
                 else if(sum == sum2 && second != "" && ppt == 0){
                     second = second.replaceFirst(",","");//!!!!!!!!!!!!!!!!!!!!!!!!!!!修复了遇到，系统崩溃的bug
                     int len2 = second.length();
-                    if (len2 > 1) {
+                    if (len2 == 1 || (len2 == 2 && (second.indexOf("-") != -1|| second.indexOf(".") != -1))) {
+                        second = "0";
+                        textView.setText(second);
+                        flag = true;//新加*********************************
+                    }
+                    else if (len2 > 1) {
                         second = second.substring(0, len2 - 1);
                         /*if(second.indexOf(".") == -1)  {
                             bfudian = 0;//保存产生的点（按其他都置零
@@ -985,11 +1035,8 @@ public class MainActivity extends AppCompatActivity {
                             //ffudian = 0;//防止产生两个点
                         }*/
                         textView.setText(second);
-                    } else if (len2 == 1) {
-                        second = "0";
-                        textView.setText(second);
-                        flag = true;//新加*********************************
                     }
+
                     sum = Double.parseDouble(second);
                     sum2 = Double.parseDouble(second);
                 }
@@ -1002,7 +1049,8 @@ public class MainActivity extends AppCompatActivity {
         btn_2.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                ooo = 0;//用于修复按点0再按加减的bug  
+                aaa = 0;//用于修补四则运算后不能退位的情况
+                ooo = 0;//用于修复按点0再按加减的bug
                 ppt = 0;//用于使平方后退位失灵
                 bfudian = 0;//保存产生的点（按其他都置零
                 if(a == 1){//修补按平方后再按数字的bug
@@ -1075,6 +1123,7 @@ public class MainActivity extends AppCompatActivity {
         btn_3.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                aaa = 0;//用于修补四则运算后不能退位的情况
                 ooo = 0;//用于修复按点0再按加减的bug
                 ppt = 0;//用于使平方后退位失灵
                 bfudian = 0;//保存产生的点（按其他都置零
@@ -1148,6 +1197,7 @@ public class MainActivity extends AppCompatActivity {
         btn_4.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                aaa = 0;//用于修补四则运算后不能退位的情况
                 ooo = 0;//用于修复按点0再按加减的bug
                 ppt = 0;//用于使平方后退位失灵
                 bfudian = 0;//保存产生的点（按其他都置零
@@ -1221,6 +1271,7 @@ public class MainActivity extends AppCompatActivity {
         btn_5.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                aaa = 0;//用于修补四则运算后不能退位的情况
                 ooo = 0;//用于修复按点0再按加减的bug
                 ppt = 0;//用于使平方后退位失灵
                 bfudian = 0;//保存产生的点（按其他都置零
@@ -1294,6 +1345,7 @@ public class MainActivity extends AppCompatActivity {
         btn_6.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                aaa = 0;//用于修补四则运算后不能退位的情况
                 ooo = 0;//用于修复按点0再按加减的bug
                 ppt = 0;//用于使平方后退位失灵
                 bfudian = 0;//保存产生的点（按其他都置零
@@ -1367,6 +1419,7 @@ public class MainActivity extends AppCompatActivity {
         btn_7.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                aaa = 0;//用于修补四则运算后不能退位的情况
                 ooo = 0;//用于修复按点0再按加减的bug
                 ppt = 0;//用于使平方后退位失灵
                 bfudian = 0;//保存产生的点（按其他都置零
@@ -1440,6 +1493,7 @@ public class MainActivity extends AppCompatActivity {
         btn_8.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                aaa = 0;//用于修补四则运算后不能退位的情况
                 ooo = 0;//用于修复按点0再按加减的bug
                 ppt = 0;//用于使平方后退位失灵
                 bfudian = 0;//保存产生的点（按其他都置零
@@ -1513,6 +1567,7 @@ public class MainActivity extends AppCompatActivity {
         btn_9.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                aaa = 0;//用于修补四则运算后不能退位的情况
                 ooo = 0;//用于修复按点0再按加减的bug
                 ppt = 0;//用于使平方后退位失灵
                 bfudian = 0;//保存产生的点（按其他都置零
@@ -1587,6 +1642,7 @@ public class MainActivity extends AppCompatActivity {
         btn_jian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                aaa = 1;//用于修补四则运算后不能退位的情况
                 ooo = 0;//用于修复按点0再按加减的bug
                 ppt = 0;//用于使平方后退位失灵
                 bfudian = 0;//保存产生的点（按其他都置零
@@ -1662,6 +1718,7 @@ public class MainActivity extends AppCompatActivity {
         btn_cheng.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                aaa = 1;//用于修补四则运算后不能退位的情况
                 ooo = 0;//用于修复按点0再按加减的bug
                 ppt = 0;//用于使平方后退位失灵
                 bfudian = 0;//保存产生的点（按其他都置零
